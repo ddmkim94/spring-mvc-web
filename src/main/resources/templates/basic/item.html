@@ -17,6 +17,8 @@
     <h2>상품 상세</h2>
   </div>
 
+  <h2 th:if="${status}" th:text="'저장 완료'"></h2>
+
   <div>
     <label for="id">상품 ID</label>
     <input type="text" id="id" name="id" th:value="${item.id}" value="1" class="form-control" readonly>

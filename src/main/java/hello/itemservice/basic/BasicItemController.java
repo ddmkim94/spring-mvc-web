@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -31,9 +32,12 @@ public class BasicItemController {
     }
 
     @GetMapping("/{itemId}")
-    public String item(@PathVariable("itemId") Long itemId, Model model) {
+    public String item(@PathVariable("itemId") Long itemId,
+                       @RequestParam("status") boolean status,
+                       Model model) {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
+        model.addAttribute("status", status);
         return "basic/item";
     }
 
@@ -59,11 +63,22 @@ public class BasicItemController {
     /**
      * PRG - Post -> Redirect -> Get
      */
+    /**
+     * @PostMapping("/add") public String add(@ModelAttribute("item") Item item) {
+     * itemRepository.save(item);
+     * return "redirect:/basic/items/" + item.getId();
+     * }
+     */
+
     @PostMapping("/add")
-    public String add(@ModelAttribute("item") Item item) {
-        itemRepository.save(item);
-        return "redirect:/basic/items/" + item.getId();
+    public String add(@ModelAttribute("item") Item item, RedirectAttributes redirectAttributes) {
+        Item saveItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", saveItem.getId());
+        redirectAttributes.addAttribute("status", true); // 저장 여부를 알려주는 변수
+
+        return "redirect:/basic/items/{itemId}";
     }
+
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
