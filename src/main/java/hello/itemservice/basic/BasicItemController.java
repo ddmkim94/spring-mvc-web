@@ -33,7 +33,7 @@ public class BasicItemController {
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable("itemId") Long itemId,
-                       @RequestParam("status") boolean status,
+                       @RequestParam(value = "status", required = false) boolean status,
                        Model model) {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
