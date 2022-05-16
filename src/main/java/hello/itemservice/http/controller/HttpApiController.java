@@ -3,6 +3,7 @@ package hello.itemservice.http.controller;
 import hello.itemservice.http.domain.Member;
 import hello.itemservice.http.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class HttpApiController {
         return memberRepository.findById(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     @PostMapping("/members/{id}")
     public Member addMember(@RequestBody Member member) {
