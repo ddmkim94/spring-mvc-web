@@ -30,16 +30,16 @@ public class HttpApiController {
         return "http/members";
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    @PostMapping("/members")
+    public Member addMember(@RequestBody Member member) {
+        return memberRepository.save(new Member(member.getName(), member.getAge()));
+    }
+
     @ResponseBody
     @GetMapping("/members/{id}")
     public Member member(@PathVariable("id") Long id) {
         return memberRepository.findById(id);
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    @PostMapping("/members/{id}")
-    public Member addMember(@RequestBody Member member) {
-        return memberRepository.save(new Member(member.getName(), member.getAge()));
     }
 }
