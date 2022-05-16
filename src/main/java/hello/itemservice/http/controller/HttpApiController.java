@@ -61,4 +61,20 @@ public class HttpApiController {
             return memberRepository.findById(id);
         }
     }
+
+    /**
+     * PATCH: 리소스 부분 변경!
+     */
+    @ResponseBody
+    @PatchMapping("/members/{id}")
+    public Member patchMember(@PathVariable Long id, @RequestBody Member member) {
+        Member findMember = memberRepository.findById(id);
+        if (member.getName() != null) {
+            findMember.setName(member.getName());
+        }
+        if (member.getAge() != 0) {
+            findMember.setAge(member.getAge());
+        }
+        return findMember;
+    }
 }
