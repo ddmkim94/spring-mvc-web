@@ -42,4 +42,23 @@ public class HttpApiController {
     public Member member(@PathVariable("id") Long id) {
         return memberRepository.findById(id);
     }
+
+    /**
+     * PUT: 리소스가 있으면 "완전히" 대체, 없으면 생성!
+     * @Pathvariable
+     * - URI 주소에서 {}안의 변수 이름과 파라미터 이름이 같은 경우 value 속성 생략 가능!!
+     * - 파라미터 이름을 직접 지정하고 싶다면 value 속성에 {}안의 변수이름과 똑같은 이름을 지정!
+     *
+     */
+    @ResponseBody
+    @PutMapping("/members/{id}")
+    public Member putMember(@PathVariable Long id, @RequestBody Member member) {
+        Member findMember = memberRepository.findById(id);
+        if (findMember == null) {
+            return memberRepository.save(member);
+        } else {
+            memberRepository.update(id, member);
+            return memberRepository.findById(id);
+        }
+    }
 }

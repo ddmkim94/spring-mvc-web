@@ -20,6 +20,13 @@ public class MemberRepository {
         return member;
     }
 
+    public void update(Long id, Member param) {
+        Member member = memberMap.get(id);
+        member.setName(param.getName());
+        member.setAge(param.getAge());
+        memberMap.put(id, member);
+    }
+
     public Member findById(Long id) {
         return memberMap.get(id);
     }
