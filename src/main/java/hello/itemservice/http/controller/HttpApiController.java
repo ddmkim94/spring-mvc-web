@@ -1,14 +1,18 @@
 package hello.itemservice.http.controller;
 
 import hello.itemservice.http.domain.Member;
+import hello.itemservice.http.domain.UploadInfo;
 import hello.itemservice.http.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -45,10 +49,9 @@ public class HttpApiController {
 
     /**
      * PUT: 리소스가 있으면 "완전히" 대체, 없으면 생성!
-     * @Pathvariable
-     * - URI 주소에서 {}안의 변수 이름과 파라미터 이름이 같은 경우 value 속성 생략 가능!!
-     * - 파라미터 이름을 직접 지정하고 싶다면 value 속성에 {}안의 변수이름과 똑같은 이름을 지정!
      *
+     * @Pathvariable - URI 주소에서 {}안의 변수 이름과 파라미터 이름이 같은 경우 value 속성 생략 가능!!
+     * - 파라미터 이름을 직접 지정하고 싶다면 value 속성에 {}안의 변수이름과 똑같은 이름을 지정!
      */
     @ResponseBody
     @PutMapping("/members/{id}")
@@ -76,5 +79,29 @@ public class HttpApiController {
             findMember.setAge(member.getAge());
         }
         return findMember;
+    }
+
+    @GetMapping("/save")
+    public String fileForm() {
+        return "http/files";
+    }
+
+    @ResponseBody
+    @PostMapping("/save")
+    public UploadInfo file(@RequestParam String username,
+                           @RequestParam int age,
+                           @RequestParam MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+            long fileSize = file.getSize(); // 파일 사이즈
+            String fileName = file.getOriginalFilename(); // 파일 이름
+            String extension = fileName.substring(fileName.lastIndexOf(".")); // 파일 확장자
+            String fileContentType = file.getContentType(); // contentType
+            String fullPath = "/Users/dongmin/Desktop/test/" + fileName; // 파일 업로드 최종 경로
+
+            file.transferTo(new File(fullPath)); // 지정한 경로에 파일 저장
+            return new UploadInfo(username, age, fileName, extension, fileSize, fileContentType);
+        } else {
+            return new UploadInfo(username, age);
+        }
     }
 }
