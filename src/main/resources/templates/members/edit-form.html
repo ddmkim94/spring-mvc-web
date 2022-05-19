@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/members/1/edit" th:action="@{/members/{id}/edit(id=${member.id})}" method="post">
+        <label>
+            <input type="text" th:value="${member.id}" readonly /> <br>
+        </label>
+
+        <label for="name">
+            이름: <input type="text" id="name" name="name" th:value="${member.name}"/> <br>
+        </label>
+
+        <label for="age">
+            나이: <input type="text" id="age" name="age" th:value="${member.age}"/> <br>
+        </label>
+
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>

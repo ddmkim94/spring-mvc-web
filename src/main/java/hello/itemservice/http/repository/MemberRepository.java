@@ -15,7 +15,7 @@ public class MemberRepository {
     private static long sequence = 0L; // 시퀀스
 
     public Member save(Member member) {
-        member.setId(sequence += 100);
+        member.setId(++sequence);
         memberMap.put(member.getId(), member);
         return member;
     }
@@ -25,6 +25,10 @@ public class MemberRepository {
         member.setName(param.getName());
         member.setAge(param.getAge());
         memberMap.put(id, member);
+    }
+
+    public void delete(Long id) {
+        memberMap.remove(id);
     }
 
     public Member findById(Long id) {

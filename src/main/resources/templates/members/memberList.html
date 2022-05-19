@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>나이</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="member : ${members}">
+                <td><a th:text="${member.id}" th:href="@{/members/{id}(id=${member.id})}"></a></td>
+                <td th:text="${member.name}">김동민</td>
+                <td th:text="${member.age}">29</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2><a href="/members/new">회원 등록</a></h2>
+</body>
+</html>

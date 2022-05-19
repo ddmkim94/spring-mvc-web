@@ -20,7 +20,7 @@ public class HttpApiController {
 
     private static final MemberRepository memberRepository = new MemberRepository();
 
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         memberRepository.save(new Member("동민", 29));
         memberRepository.save(new Member("연서", 36));
@@ -28,7 +28,7 @@ public class HttpApiController {
         memberRepository.save(new Member("소민", 25));
     }
 
-    @GetMapping("/members")
+    // @GetMapping("/members")
     public String members(Model model) {
         model.addAttribute("members", memberRepository.findAll());
         return "http/members";
@@ -36,13 +36,13 @@ public class HttpApiController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    @PostMapping("/members")
+    // @PostMapping("/members")
     public Member addMember(@RequestBody Member member) {
         return memberRepository.save(new Member(member.getName(), member.getAge()));
     }
 
     @ResponseBody
-    @GetMapping("/members/{id}")
+    // @GetMapping("/members/{id}")
     public Member member(@PathVariable("id") Long id) {
         return memberRepository.findById(id);
     }
@@ -54,7 +54,7 @@ public class HttpApiController {
      * - 파라미터 이름을 직접 지정하고 싶다면 value 속성에 {}안의 변수이름과 똑같은 이름을 지정!
      */
     @ResponseBody
-    @PutMapping("/members/{id}")
+    // @PutMapping("/members/{id}")
     public Member putMember(@PathVariable Long id, @RequestBody Member member) {
         Member findMember = memberRepository.findById(id);
         if (findMember == null) {
