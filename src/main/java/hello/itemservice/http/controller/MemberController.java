@@ -64,16 +64,25 @@ public class MemberController {
     }
 
     // 회원 수정
-    @PostMapping("/members/{id}/edit")
+    // @PostMapping("/members/{id}/edit")
     public String edit(@PathVariable Long id, @ModelAttribute Member updateParam) {
         log.info("updateParam={}", updateParam);
         memberRepository.update(id, updateParam);
         return "redirect:/members";
     }
 
+    // 회원 수정(AJAX)
+    @ResponseBody
+    @PostMapping("/members/{id}/edit")
+    public Member editAjax(@PathVariable Long id, @ModelAttribute Member member) {
+        memberRepository.update(id, member);
+        return member;
+    }
+
     // 회원 삭제
     @PostMapping("/members/{id}/delete")
     public String delete(@PathVariable Long id) {
+
         memberRepository.delete(id);
         return "redirect:/members";
     }
