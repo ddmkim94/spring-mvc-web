@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../static/js/memberList.js"></script>
 </head>
 <body>
     <table>
@@ -13,14 +15,9 @@
                 <th>나이</th>
             </tr>
         </thead>
-        <tbody>
-            <tr th:each="member : ${members}">
-                <td><a th:text="${member.id}" th:href="@{/members/{id}(id=${member.id})}"></a></td>
-                <td th:text="${member.name}">김동민</td>
-                <td th:text="${member.age}">29</td>
-            </tr>
-        </tbody>
+        <tbody class="members"></tbody>
     </table>
+    <button type="button" class="toggle-btn" value="hide">회원목록 펼치기</button>
     <h2><a href="/members/new">회원 등록</a></h2>
 </body>
 </html>

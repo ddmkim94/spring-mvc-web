@@ -25,12 +25,16 @@ public class MemberController {
         memberRepository.save(new Member("소민", 25));
     }
 
-    // 회원 목록 조회
     @GetMapping("/members")
-    public String memberList(Model model) {
-        List<Member> members = memberRepository.findAll();
-        model.addAttribute("members", members);
-        return "members/memberList";
+    public String index() {
+        return "/members/memberList";
+    }
+
+    // 회원 목록 조회 -> JSON 배열 형태로 클라이언트로 전달
+    @ResponseBody
+    @GetMapping("/membersJson")
+    public List<Member> memberList() {
+        return memberRepository.findAll();
     }
 
     // 회원 등록 폼
