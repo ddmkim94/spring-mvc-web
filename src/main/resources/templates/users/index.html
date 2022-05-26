@@ -24,7 +24,7 @@
 </head>
 <body>
   <div class="container">
-    <form action="/users/new" method="post" id="form">
+    <form id="form">
       <div class="input-text">
         <input type="hidden" id="no" name="no"/>
         <label for="id">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="btn" style="margin-top: 50px;">
-        <button type="submit">회원 등록</button>
+        <button type="button" class="add-btn">회원 등록</button>
         <button type="button" class="list-btn">회원목록 가져오기</button>
         <!-- <button type="button" onclick="location.href='/users'" th:onclick="|location.href='@{/users}'|">회원목록 가져오기</button> -->
         <button type="button" class="update-btn">회원정보 수정</button>

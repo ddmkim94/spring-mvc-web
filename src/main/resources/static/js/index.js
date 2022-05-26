@@ -12,7 +12,24 @@ $(document).on('click', 'tbody > tr', function () {
 });
 
 $(document).ready(function () {
-    // 회원 정보 수정 AJAX
+
+    // 3. 회원등록 [AJAX]
+    $(".add-btn").click(() => {
+        let data = $("#form").serializeArray();
+        $.ajax({
+            type: "post",
+            url: "/users/new",
+            data: data,
+        }).success(() => {
+            $.ajax({
+                url: "/users"
+            }).success((data/* 서버에서 나에게 응답해준 데이터 */) => {
+                viewListMember(data);
+            });
+        });
+    });
+
+    // 2. 회원정보 수정 [AJAX]
     $(".update-btn").click(() => {
         let data = $("#form").serializeArray();
         $.ajax({
@@ -28,7 +45,7 @@ $(document).ready(function () {
         });
     });
 
-
+    // 1. 회원목록 가져오기 [AJAX]
     $(".list-btn").click(function () {
         $.ajax({
             type: "get",
@@ -42,8 +59,9 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
-    })
+    });
 
+    // 회원목록을 그려주는 함수
     function viewListMember(data) {
         let memberTable = $(".memberList").empty();
 
