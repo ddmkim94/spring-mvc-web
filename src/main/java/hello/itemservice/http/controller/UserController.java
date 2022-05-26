@@ -28,15 +28,21 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/users/new")
-    public User saveMember(@ModelAttribute User user) {
+    public User saveUser(@ModelAttribute User user) {
         userRepository.save(user);
         return user;
     }
 
     @ResponseBody
     @PostMapping("/users/edit")
-    public User updateMember(@ModelAttribute User user) {
+    public User updateUser(@ModelAttribute User user) {
         return userRepository.update(user.getNo(), user);
+    }
+
+    @ResponseBody
+    @PostMapping("/users/delete")
+    public void deleteUser(@RequestParam Long no) {
+        userRepository.delete(no);
     }
 
     @ResponseBody

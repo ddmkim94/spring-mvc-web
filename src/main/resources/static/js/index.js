@@ -13,6 +13,23 @@ $(document).on('click', 'tbody > tr', function () {
 
 $(document).ready(function () {
 
+    // 4. 회원삭제 [AJAX]
+    $(".delete-btn").click(() => {
+        let no = $("#no").val();
+        let data = {no: no};
+        $.ajax({
+            type: "post",
+            url: "/users/delete",
+            data: data
+        }).success((/* 삭제 후 반환되는 데이터가 없기 때문에 생략 */) => {
+            $.ajax({
+                url: "/users",
+            }).success((data /* 서버가 나에게 반환한 데이터 */) => {
+                viewListMember(data);
+            });
+        });
+    });
+
     // 3. 회원등록 [AJAX]
     $(".add-btn").click(() => {
         let data = $("#form").serializeArray();

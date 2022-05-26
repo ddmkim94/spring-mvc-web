@@ -28,6 +28,10 @@ public class UserRepository {
         return user;
     }
 
+    public void delete(Long no) {
+        usersMap.remove(no);
+    }
+
     public User findByNo(Long no) {
         return usersMap.get(no);
     }
