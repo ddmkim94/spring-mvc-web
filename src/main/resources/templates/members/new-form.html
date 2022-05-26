@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/members/new" th:action method="post">
+        <label for="name">
+            이름: <input type="text" id="name" name="name"/>
+        </label>
+        <label for="age">
+            나이: <input type="text" id="age" name="age"/>
+        </label>
+        <button type="submit">등록</button>
+    </form>
+</body>
+</html>

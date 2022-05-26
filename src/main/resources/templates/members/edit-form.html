@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function (){
+            $('.update-btn').click(function() {
+                let id = $('#id').val();
+                let name = $('#name').val();
+                let age = $('#age').val();
+
+                $.ajax({
+                    type: "post",
+                    url: "/members/"+ id + "/edit",
+                    data: {"name":name, "age":age}, // 클라이언트에서 서버로 보낼 데이터
+                    dataType: "json", // 서버에서 클라이언트로 보내줄 데이터의 타입
+
+                    success:function (data) {
+                        createdHtml(data);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("통신 에러!" + xhr + ", " + status + ", " + error);
+                    }
+                })
+            })
+
+            function createdHtml(data) {
+                let container = $(".container");
+                container.html(`수정 후 이름: ${data.name}, 수정 후 나이: ${data.age}<br>
+                                <button type="button" onclick="location.href='/members'">목록으로!</button>`);
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="container">
+    <label>
+        ID: <input type="text" id="id" th:value="${member.id}" readonly/> <br>
+    </label>
+
+    <label for="name">
+        이름: <input type="text" id="name" name="name" th:value="${member.name}"/> <br>
+    </label>
+
+    <label for="age">
+        나이: <input type="text" id="age" name="age" th:value="${member.age}"/> <br>
+    </label>
+
+    <button type="button" class="update-btn">수정</button>
+</div>
+</body>
+</html>

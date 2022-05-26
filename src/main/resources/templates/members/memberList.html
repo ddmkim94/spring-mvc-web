@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../static/js/memberList.js"></script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>나이</th>
+            </tr>
+        </thead>
+        <tbody class="members"></tbody>
+    </table>
+    <button type="button" class="toggle-btn" value="hide">회원목록 펼치기</button>
+    <h2><a href="/members/new">회원 등록</a></h2>
+</body>
+</html>
