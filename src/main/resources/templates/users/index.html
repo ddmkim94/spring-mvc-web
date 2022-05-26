@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 관리 사이트</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../static/js/index.js"></script>
+    <style>
+      .memberList {
+        margin-top: 30px;
+        border: 1px solid black;
+        font-size: 24px;
+      }
+
+      th, td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      .active {
+        background-color: pink;
+      }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <form id="form">
+      <div class="input-text">
+        <input type="hidden" id="no" name="no"/>
+        <label for="id">
+          아이디: <input type="text" id="id" name="id" />
+        </label>
+
+        <label for="name">
+          이름: <input type="text" id="name" name="name" />
+        </label>
+
+        <label for="email">
+          이메일: <input type="text" id="email" name="email" />
+        </label>
+      </div>
+
+      <div class="btn" style="margin-top: 50px;">
+        <button type="button" class="add-btn">회원 등록</button>
+        <button type="button" class="list-btn">회원목록 가져오기</button>
+        <!-- <button type="button" onclick="location.href='/users'" th:onclick="|location.href='@{/users}'|">회원목록 가져오기</button> -->
+        <button type="button" class="update-btn">회원정보 수정</button>
+        <button type="button" class="delete-btn">회원정보 삭제</button>
+      </div>
+    </form>
+
+    <div>
+      <table class="memberList"></table>
+    </div>
+  </div>
+</body>
+</html>
